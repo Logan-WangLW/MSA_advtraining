@@ -1,0 +1,23 @@
+{
+  "name": "msa_advtraining",
+  "version": "1.0.0",
+  "description": "This is my food bot repository",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/logan-wang93/MSA_advtraining.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/logan-wang93/MSA_advtraining/issues"
+  },
+  "homepage": "https://github.com/logan-wang93/MSA_advtraining#readme",
+  "dependencies": {
+    "botbuilder": "^3.12.0",
+    "restify": "^6.3.4"
+  }
+}
