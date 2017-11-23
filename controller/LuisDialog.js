@@ -5,7 +5,7 @@ var nutrition = require('./NutritionCard');
 var customVision = require('./customVision');
 
 // Some sections have been omitted
-var isAttachment = false;
+
 
 exports.startDialog = function (bot) {
     
