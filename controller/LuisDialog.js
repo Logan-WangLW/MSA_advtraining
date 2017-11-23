@@ -1,6 +1,7 @@
 var builder = require('botbuilder');
 var restaurant = require('./RestaurantCard');
 var food = require("./FavouriteFoods");
+var nutrition = require('./NutritionCard');
 // Some sections have been omitted
 var isAttachment = false;
 
@@ -12,8 +13,19 @@ exports.startDialog = function (bot) {
     bot.recognizer(recognizer);
 
     bot.dialog('GetCalories', function (session, args) {
-        
-        session.send("Get Calories intent found")    
+
+
+            // Pulls out the food entity from the session if it exists
+            var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
+
+            // Checks if the for entity was found
+            if (foodEntity) {
+                session.send('Calculating calories in %s...', foodEntity.entity);
+                nutrition.displayNutritionCards(foodEntity.entity, session);
+
+            } else {
+                session.send("No food identified! Please try again");
+            }
     }).triggerAction({
         matches: 'GetCalories'
     });
