@@ -1,5 +1,6 @@
 var builder = require('botbuilder');
-var food = require("./FavouriteFoods")
+var restaurant = require('./RestaurantCard');
+var food = require("./FavouriteFoods");
 // Some sections have been omitted
 var isAttachment = false;
 
@@ -27,7 +28,7 @@ exports.startDialog = function (bot) {
             }
         },
         function (session, results,next) {
-
+//bodiwala
             //add this code in otherwise your username will not work
             if (results.response){
                 session.conversationData["username"] = results.response;
@@ -109,10 +110,22 @@ exports.startDialog = function (bot) {
 
     bot.dialog('WantFood', function (session, args) {
         
-        session.send("Want food intent found")
-    }).triggerAction({
-        matches: 'WantFood'
-    });
+
+                    // Pulls out the food entity from the session if it exists
+                    var foodEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'food');
+        
+                    // Checks if the for entity was found
+                    if (foodEntity) {
+                        session.send('Looking for restaurants which sell %s...', foodEntity.entity);
+                        restaurant.displayRestaurantCards(foodEntity.entity, "auckland", session);
+                    } else {
+                        session.send("No food identified! Please try again");
+                    }
+                
+        
+            }).triggerAction({
+                matches: 'WantFood'
+            });
 
     bot.dialog('WelcomeIntent', function (session, args) {
         
