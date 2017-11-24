@@ -22,7 +22,7 @@ exports.getYelpData = function getData(url,bearer,session, callback){
                 }
             });
         };
-        
+
 exports.getFavouriteFood = function getData(url, session, username, callback){
     request.get(url, {'headers':{'ZUMO-API-VERSION': '2.0.0'}}, function(err,res,body){
         if(err){
@@ -78,3 +78,26 @@ exports.deleteFavouriteFood = function deleteData(url,session, username ,favouri
     })
 
 };
+
+exports.postQnAResults = function getData(url, session, question, callback){
+    var options = {
+        url: url,
+        method: 'POST',
+        headers: {
+            'Ocp-Apim-Subscription-Key': '96b9b1ffea184dadb018d01b94fa6918',
+            'Content-Type':'application/json'
+        },
+        json: {
+            "question" : question
+        }
+      };
+  
+      request(options, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            callback(body, session, question);
+        }
+        else{
+            console.log(error);
+        }
+      });
+  };
